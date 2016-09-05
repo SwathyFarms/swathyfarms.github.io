@@ -30,12 +30,12 @@
 		var prefix =  $("#prefix").val();
 		var start  =  parseInt($("#start").val());
 		var count  =  parseInt($("#count").val());
-		alert(start+count);
+		console.log(start+count);
 		for (i=start; i<start+count; i++) {
 			var curCode = prefix+i+md5("WEPL"+prefix+i+"WEPL");
 			$("#result").append('<div class="floatr" id="'+ curCode +'"></div>');
 			new QRCode(document.getElementById(curCode), curCode);
-		    alert(curCode);
+		    console.log(curCode);
 		}
 		$('#start').val(start+count);
 	});
