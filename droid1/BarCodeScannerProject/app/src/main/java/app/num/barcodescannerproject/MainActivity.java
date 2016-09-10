@@ -6,6 +6,7 @@ import android.os.Vibrator;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.CheckBox;
 import com.goebl.david.Webb;
 import com.google.zxing.Result;
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
@@ -15,6 +16,7 @@ public class MainActivity extends AppCompatActivity implements ZXingScannerView.
     private ZXingScannerView mScannerView;
     String lastSeenString;
     Webb webb = Webb.create();
+    String pushpop = "push";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,7 +30,16 @@ public class MainActivity extends AppCompatActivity implements ZXingScannerView.
         mScannerView.setResultHandler(this); // Register ourselves as a handler for scan results.
         mScannerView.startCamera();         // Start camera
     }
-
+    public void changePP(){
+        CheckBox PP = (CheckBox) findViewById(R.id.PPcheckbox);
+        if (PP.isChecked()){
+            pushpop = "pop";
+            PP.setText("Remove");
+        }else{
+            pushpop = "push";
+            PP.setText("Add");
+        }
+    }
     @Override
     public void onPause() {
         super.onPause();
@@ -48,10 +59,9 @@ public class MainActivity extends AppCompatActivity implements ZXingScannerView.
                 @Override
                 public void run() {
                     try {
-                        String tempText = String.format("Scanner got [%s]%s", rawResultTemp.getBarcodeFormat().toString(), rawResultTemp.getText());
+                        String tempText = String.format("http://farmqr.swathyfarms.com/dataSet/%sValue/%s",pushpop,rawResultTemp.getText());
                         JSONObject result = webb
-                                .get("https://api.telegram.org/bot267520346:AAGrQYd1DLv3GBUMszqMejLk-oe9xoJdQDU/sendMessage")
-                                .param("text", tempText)
+                                .get(tempText)
                                 .param("chat_id", "@logjack")
                                 .ensureSuccess()
                                 .asJsonObject()

@@ -8,9 +8,16 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="app.num.barcodescannerproject.MainActivity">
-
-    <Button android:layout_height="wrap_content"
-        android:layout_width="match_parent"
-        android:text="QRScanner"
-        android:onClick="QrScanner" />
+    <CheckBox
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Add"
+            android:checked="false"
+            android:onClick="changePP"
+            android:id="@+id/PPcheckbox"/>
+    <Button
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:text="QRScanner"
+            android:onClick="QrScanner" />
 </RelativeLayout>
